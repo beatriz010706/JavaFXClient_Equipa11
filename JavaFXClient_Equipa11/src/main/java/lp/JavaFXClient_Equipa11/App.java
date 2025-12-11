@@ -1,8 +1,8 @@
 package lp.JavaFXClient_Equipa11;
-
 /**
- * Hello world!
+ * @author equipa11
  */
+
 public class App {
     public static void main(String[] args) {
         System.out.println("Hello World!");
