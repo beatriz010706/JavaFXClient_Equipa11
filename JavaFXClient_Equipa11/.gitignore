@@ -1,0 +1,15 @@
+# Maven
+target/
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# MacOS
+.DS_Store
+
+# Ignorar tudo que esteja na raiz que tenha *.repository*
+_remote.repositories
