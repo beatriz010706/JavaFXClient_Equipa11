@@ -33,4 +33,3 @@ public class CandidaturaController {
         new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
 }
-
