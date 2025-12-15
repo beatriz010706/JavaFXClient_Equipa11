@@ -1,14 +1,46 @@
-<VBox xmlns:fx="http://javafx.com/fxml"
- fx:controller="lp.JavaFXClient_Equipa11.controller.ParceiroController"
- spacing="10" style="-fx-padding:10;">
-    <Label text="Parceiro"/>
-    <TextField fx:id="txtParceiroId" promptText="ID Parceiro"/>
-    <ComboBox fx:id="tipoPrograma"/>
-    <Button text="Registar Programa" onAction="#registarPrograma"/>
-    <Button text="Editar Programa" onAction="#editarPrograma"/>
-    <Button text="Eliminar Programa" onAction="#eliminarPrograma"/>
-    <TableView fx:id="candidaturasTable"/>
-    <Button text="Aprovar" onAction="#aprovarCandidatura"/>
-    <Button text="Rejeitar" onAction="#rejeitarCandidatura"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFXClient_Equipa11.controller.ParceiroController"
+      spacing="10"
+      style="-fx-padding:10;">
+
+    <Label text="Gestão de Parceiros"
+           style="-fx-font-size:16;-fx-font-weight:bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Parceiro ID:"/>
+        <TextField fx:id="txtParceiroId" promptText="ID do Parceiro"/>
+        <Label text="Tipo de Programa:"/>
+        <ComboBox fx:id="tipoPrograma"/>
+    </HBox>
+
+    <TableView fx:id="programasTable" prefHeight="250">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="80"/>
+            <TableColumn fx:id="tituloCol" text="Título" prefWidth="220"/>
+            <TableColumn fx:id="tipoCol" text="Tipo" prefWidth="120"/>
+            <TableColumn fx:id="vagasCol" text="Vagas" prefWidth="80"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Button text="Registar Programa" onAction="#registarPrograma"/>
+        <Button text="Editar Programa" onAction="#editarPrograma"/>
+        <Button text="Eliminar Programa" onAction="#eliminarPrograma"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Aprovar Candidatura" onAction="#aprovarCandidatura"/>
+        <Button text="Rejeitar Candidatura" onAction="#rejeitarCandidatura"/>
+    </HBox>
+
 </VBox>
+
+
 
