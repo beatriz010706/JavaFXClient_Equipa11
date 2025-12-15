@@ -4,7 +4,7 @@ package lp.JavaFXClient_Equipa11.modelDTO;
  * @author miguel silva
  */
 
-public class ProgramaVoluntariadoDTO {
+public class ProgramaDTO {
 
     private Long id;
     private String titulo;
@@ -14,9 +14,9 @@ public class ProgramaVoluntariadoDTO {
     private int vagas;
     private int vagasOcupadas;
 
-    public ProgramaVoluntariadoDTO() {}
+    public ProgramaDTO() {}
 
-    public ProgramaVoluntariadoDTO(Long id, String titulo, String descricao, int horasServico, String local, int vagas, int vagasOcupadas) {
+    public ProgramaDTO(Long id, String titulo, String descricao, int horasServico, String local, int vagas, int vagasOcupadas) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
