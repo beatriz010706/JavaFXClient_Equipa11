@@ -9,7 +9,7 @@
       spacing="10"
       xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="lp.javafxclient_equipa11.controllers.ParceirosController">
+      fx:controller="lp.JavaFXClient_Equipa11.controller.ParceiroController">
 
    <children>
       <Label text="Menu Parceiro"/>

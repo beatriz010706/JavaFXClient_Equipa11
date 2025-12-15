@@ -2,87 +2,81 @@ package lp.JavaFXClient_Equipa11.controller;
 /**
  * @author beatriz silva
  */
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import lp.JavaFXClient_Equipa11.modelDTO.EstudanteDTO;
 import lp.JavaFXClient_Equipa11.services.ApiService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 public class EstudanteController {
 
-    @FXML private TextField txtNome;
-    @FXML private TextField txtEmail;
-    @FXML private TextField txtPassword;
-    @FXML private TextField txtCurso;
-    @FXML private TextField txtNumeroAluno;
-
-    @FXML private TextField txtEstudanteId;
-    @FXML private TextField txtProgramaId;
+    @FXML private TableView<EstudanteDTO> estudantesTable;
+    @FXML private TableColumn<EstudanteDTO, Long> idCol;
+    @FXML private TableColumn<EstudanteDTO, String> nomeCol;
+    @FXML private TableColumn<EstudanteDTO, String> emailCol;
+    @FXML private TableColumn<EstudanteDTO, String> cursoCol;
+    @FXML private TableColumn<EstudanteDTO, String> numeroAlunoCol;
 
     private final ApiService api = new ApiService();
+    private final ObjectMapper mapper = new ObjectMapper();
 
-    //  REGISTAR ESTUDANTE 
     @FXML
-    private void registarEstudante() {
+    public void initialize() {
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nomeCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        cursoCol.setCellValueFactory(new PropertyValueFactory<>("curso"));
+        numeroAlunoCol.setCellValueFactory(new PropertyValueFactory<>("numeroAluno"));
 
-        String json = """
-        {
-          "nome": "%s",
-          "email": "%s",
-          "password": "%s",
-          "curso": "%s",
-          "numeroAluno": %s
+        loadEstudantes();
+    }
+
+    @FXML
+    public void onRefresh() {
+        loadEstudantes();
+    }
+
+    private void loadEstudantes() {
+        try {
+            String json = api.get("/estudantes");
+            if (json.startsWith("ERROR:")) {
+                showAlert(Alert.AlertType.ERROR, json);
+                return;
+            }
+            List<EstudanteDTO> estudantes = mapper.readValue(json, new TypeReference<List<EstudanteDTO>>() {});
+            estudantesTable.getItems().setAll(estudantes);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erro: " + e.getMessage());
         }
-        """.formatted(
-                txtNome.getText(),
-                txtEmail.getText(),
-                txtPassword.getText(),
-                txtCurso.getText(),
-                txtNumeroAluno.getText()
-        );
-
-        api.post("/estudantes/registar", json);
-        alerta("Estudante registado com sucesso!");
     }
 
-    //  LOGIN ESTUDANTE 
     @FXML
-    private void loginEstudante() {
-
-        String json = """
-        {
-          "email": "%s",
-          "senha": "%s"
-        }
-        """.formatted(txtEmail.getText(), txtPassword.getText());
-
-        api.post("/estudantes/login", json);
-        alerta("Login efetuado!");
+    public void onAddEstudante() {
+        showAlert(Alert.AlertType.INFORMATION, "Abrir formulário de criação de Estudante");
     }
 
-    //  CONSULTAR HISTÓRICO 
     @FXML
-    private void consultarHistorico() {
-        String id = txtEstudanteId.getText();
-        String resposta = api.get("/estudantes/" + id + "/historico");
-        alerta(resposta);
+    public void onEditEstudante() {
+        EstudanteDTO selected = estudantesTable.getSelectionModel().getSelectedItem();
+        if (selected == null) { showAlert(Alert.AlertType.WARNING, "Selecione um estudante"); return; }
+        showAlert(Alert.AlertType.INFORMATION, "Abrir formulário de edição: " + selected.getNome());
     }
 
-    // CANDIDATAR A PROGRAMA 
     @FXML
-    private void candidatarPrograma() {
-
-        String json = """
-        {
-          "estudanteId": %s,
-          "programaId": %s
-        }
-        """.formatted(txtEstudanteId.getText(), txtProgramaId.getText());
-
-        api.post("/candidaturas/criar", json);
-        alerta("Candidatura submetida!");
+    public void onDeleteEstudante() {
+        EstudanteDTO selected = estudantesTable.getSelectionModel().getSelectedItem();
+        if (selected == null) { showAlert(Alert.AlertType.WARNING, "Selecione um estudante"); return; }
+        String result = api.delete("/estudantes/" + selected.getId());
+        showAlert(Alert.AlertType.INFORMATION, result);
+        loadEstudantes();
     }
 
-    private void alerta(String msg) {
-        new Alert(Alert.AlertType.INFORMATION, msg).show();
+    private void showAlert(Alert.AlertType type, String msg) {
+        new Alert(type, msg).showAndWait();
     }
-}
+}//fim classe
