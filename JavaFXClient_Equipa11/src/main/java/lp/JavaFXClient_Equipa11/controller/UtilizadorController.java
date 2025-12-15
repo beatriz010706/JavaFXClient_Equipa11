@@ -29,7 +29,7 @@ public class UtilizadorController {
         """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText());
 
         api.post(endpoint, json);
-        alert("Registo efetuado");
+        alert("Registo efetuado com sucesso!");
     }
 
     @FXML
@@ -43,10 +43,11 @@ public class UtilizadorController {
         """.formatted(txtEmail.getText(), txtPassword.getText());
 
         api.post(endpoint, json);
-        alert("Login efetuado");
+        alert("Login efetuado com sucesso!");
     }
 
-    private void alert(String m) {
-        new Alert(Alert.AlertType.INFORMATION, m).show();
+    private void alert(String msg) {
+        new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
     }
 }
+

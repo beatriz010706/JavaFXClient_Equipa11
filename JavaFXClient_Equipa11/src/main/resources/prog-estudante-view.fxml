@@ -1,11 +1,37 @@
-<VBox xmlns:fx="http://javafx.com/fxml"
- fx:controller="lp.JavaFXClient_Equipa11.controller.ProgEstudanteController"
- spacing="10" style="-fx-padding:10;">
-    <Label text="Programa Estudante"/>
-    <TextField fx:id="txtHoras" promptText="Horas"/>
-    <Button text="Adicionar Horas" onAction="#adicionarHoras"/>
-    <Button text="Progresso" onAction="#getProgresso"/>
-    <Button text="Concluir" onAction="#concluirPrograma"/>
-    <Button text="Cancelar" onAction="#cancelarParticipacao"/>
-    <Button text="Emitir Diploma" onAction="#emitirDiploma"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lp.JavaFXClient_Equipa11.controller.ProgEstudanteController"
+      spacing="10"
+      style="-fx-padding:10;">
+
+    <Label text="Programa do Estudante"
+           style="-fx-font-size:16;-fx-font-weight:bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Horas:"/>
+        <TextField fx:id="txtHoras" promptText="Número de horas"/>
+    </HBox>
+
+    <TableView fx:id="programaEstudanteTable" prefHeight="250">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="80"/>
+            <TableColumn fx:id="programaCol" text="Programa" prefWidth="200"/>
+            <TableColumn fx:id="horasCol" text="Horas" prefWidth="100"/>
+            <TableColumn fx:id="estadoCol" text="Estado" prefWidth="120"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Button text="Adicionar Horas" onAction="#adicionarHoras"/>
+        <Button text="Concluir Programa" onAction="#concluirPrograma"/>
+        <Button text="Emitir Diploma" onAction="#emitirDiploma"/>
+        <Button text="Cancelar Participação" onAction="#cancelarParticipacao"/>
+    </HBox>
+
 </VBox>

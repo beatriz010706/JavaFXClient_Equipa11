@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="lp.JavaFXClient_Equipa11.controller.MainController">
@@ -8,6 +11,7 @@
     <left>
         <VBox spacing="10" style="-fx-padding:10;">
             <Label text="Menu" style="-fx-font-weight:bold;"/>
+            <Button text="Utilizadores" onAction="#abrirMenuUtilizador" maxWidth="Infinity"/>
             <Button text="Estudantes" onAction="#abrirMenuEstudante" maxWidth="Infinity"/>
             <Button text="Parceiros" onAction="#abrirMenuParceiro" maxWidth="Infinity"/>
             <Button text="Programas" onAction="#abrirMenuProgramas" maxWidth="Infinity"/>
@@ -17,7 +21,10 @@
     </left>
 
     <center>
-        <AnchorPane fx:id="contentPane"/>
+        <BorderPane fx:id="mainPane"/>
     </center>
+
 </BorderPane>
+
+
 
