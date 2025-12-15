@@ -31,5 +31,6 @@ public class CandidaturaController {
 
     private void alerta(String msg) {
         new Alert(Alert.AlertType.INFORMATION, msg).show();
+        
     }
 }
