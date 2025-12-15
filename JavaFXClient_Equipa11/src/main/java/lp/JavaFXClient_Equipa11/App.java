@@ -12,10 +12,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/login-view.fxml")
-        );
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
         Scene scene = new Scene(loader.load());
+        
         stage.setTitle("Plataforma de Voluntariado");
         stage.setScene(scene);
         stage.show();

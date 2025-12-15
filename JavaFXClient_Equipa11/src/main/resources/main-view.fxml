@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="lp.JavaFXClient_Equipa11.controller.MainController">
+
+    <left>
+        <VBox spacing="10" style="-fx-padding:10;">
+            <Label text="Menu" style="-fx-font-weight:bold;"/>
+            <Button text="Estudantes" onAction="#abrirMenuEstudante" maxWidth="Infinity"/>
+            <Button text="Parceiros" onAction="#abrirMenuParceiro" maxWidth="Infinity"/>
+            <Button text="Programas" onAction="#abrirMenuProgramas" maxWidth="Infinity"/>
+            <Button text="Candidaturas" onAction="#abrirMenuCandidaturas" maxWidth="Infinity"/>
+            <Button text="Programa do Estudante" onAction="#abrirMenuProgramaEstudante" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <center>
+        <AnchorPane fx:id="contentPane"/>
+    </center>
+</BorderPane>
+

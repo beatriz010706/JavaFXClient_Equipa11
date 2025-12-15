@@ -8,14 +8,10 @@ import lp.JavaFXClient_Equipa11.services.ApiService;
 public class ProgEstudanteController {
 
     @FXML private TextField txtProgramaEstudanteId;
+    @FXML private TextField txtEstudanteId;
     @FXML private TextField txtHoras;
 
-    private ApiService api;
-
-    @FXML
-    public void initialize() {
-        api = new ApiService();
-    }
+    private final ApiService api = new ApiService();
 
     @FXML
     private void adicionarHoras() {

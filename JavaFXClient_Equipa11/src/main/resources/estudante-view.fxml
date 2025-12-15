@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="lp.JavaFXClient_Equipa11.controller.EstudanteController"
+      spacing="10" style="-fx-padding: 10;">
+    <HBox spacing="10">
+        <Label text="Estudantes" style="-fx-font-size:16;-fx-font-weight:bold;"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button text="Refresh" onAction="#onRefresh"/>
+        <Button text="Adicionar" onAction="#onAddEstudante"/>
+        <Button text="Editar" onAction="#onEditEstudante"/>
+        <Button text="Remover" onAction="#onDeleteEstudante"/>
+    </HBox>
+
+    <TableView fx:id="estudantesTable" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="nomeCol" text="Nome" prefWidth="150"/>
+            <TableColumn fx:id="emailCol" text="Email" prefWidth="200"/>
+            <TableColumn fx:id="cursoCol" text="Curso" prefWidth="100"/>
+            <TableColumn fx:id="numeroAlunoCol" text="Número" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>
+
