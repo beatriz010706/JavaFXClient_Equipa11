@@ -4,12 +4,12 @@ package lp.JavaFXClient_Equipa11.controller;
  */
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.type.TypeReference; 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lp.JavaFXClient_Equipa11.modelDTO.ProgramaDTO;
+import lp.JavaFXClient_Equipa11.modelDTO.ProgramaVoluntariadoDTO;
 import lp.JavaFXClient_Equipa11.modelDTO.TipoPrograma;
 import lp.JavaFXClient_Equipa11.services.ApiService;
 
@@ -20,11 +20,11 @@ public class ParceiroController {
     @FXML private TextField txtNome, txtEmail, txtPassword;
     @FXML private TextField txtTitulo, txtDescricao, txtVagas;
     @FXML private ComboBox<TipoPrograma> tipoPrograma;
-    @FXML private TableView<ProgramaDTO> programasTable;
-    @FXML private TableColumn<ProgramaDTO, Long> idCol;
-    @FXML private TableColumn<ProgramaDTO, String> tituloCol;
-    @FXML private TableColumn<ProgramaDTO, TipoPrograma> tipoCol;
-    @FXML private TableColumn<ProgramaDTO, Integer> vagasCol;
+    @FXML private TableView<ProgramaVoluntariadoDTO> programasTable;
+    @FXML private TableColumn<ProgramaVoluntariadoDTO, Long> idCol;
+    @FXML private TableColumn<ProgramaVoluntariadoDTO, String> tituloCol;
+    @FXML private TableColumn<ProgramaVoluntariadoDTO, TipoPrograma> tipoCol;
+    @FXML private TableColumn<ProgramaVoluntariadoDTO, Integer> vagasCol;
 
     private final ApiService api = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
@@ -64,7 +64,7 @@ public class ParceiroController {
     public void listarProgramas() {
         try {
             String json = api.get("/parceiros/programas");
-            List<ProgramaDTO> lista = mapper.readValue(json, new TypeReference<>() {});
+            List<ProgramaVoluntariadoDTO> lista = mapper.readValue(json, new TypeReference<>() {});
             programasTable.getItems().setAll(lista);
         } catch (Exception e) {
             alert(e.getMessage());
@@ -74,7 +74,7 @@ public class ParceiroController {
     @FXML
     public void registarPrograma() {
         try {
-            ProgramaDTO p = getProgramaFromFields();
+        	ProgramaVoluntariadoDTO p = getProgramaFromFields();
             String json = new ObjectMapper().writeValueAsString(p);
             api.post("/programas/registar", json);
             alert("Programa registado.");
@@ -87,9 +87,9 @@ public class ParceiroController {
     @FXML
     public void editarPrograma() {
         try {
-            ProgramaDTO p = selecionado();
+        	ProgramaVoluntariadoDTO p = selecionado();
             if (p == null) return;
-            ProgramaDTO novo = getProgramaFromFields();
+            ProgramaVoluntariadoDTO novo = getProgramaFromFields();
             String json = new ObjectMapper().writeValueAsString(novo);
             api.put("/programas/" + p.getId(), json);
             alert("Programa editado.");
@@ -101,7 +101,7 @@ public class ParceiroController {
 
     @FXML
     public void eliminarPrograma() {
-        ProgramaDTO p = selecionado();
+    	ProgramaVoluntariadoDTO p = selecionado();
         if (p == null) return;
         api.delete("/programas/" + p.getId());
         alert("Programa eliminado.");
@@ -110,7 +110,7 @@ public class ParceiroController {
 
     @FXML
     public void aprovarCandidatura() {
-        ProgramaDTO p = selecionado();
+    	ProgramaVoluntariadoDTO p = selecionado();
         if (p == null) return;
         api.post("/programas/" + p.getId() + "/candidaturas/aprovar", "");
         alert("Candidatura aprovada.");
@@ -118,18 +118,18 @@ public class ParceiroController {
 
     @FXML
     public void rejeitarCandidatura() {
-        ProgramaDTO p = selecionado();
+    	ProgramaVoluntariadoDTO p = selecionado();
         if (p == null) return;
         api.post("/programas/" + p.getId() + "/candidaturas/rejeitar", "");
         alert("Candidatura rejeitada.");
     }
 
-    private ProgramaDTO selecionado() {
+    private ProgramaVoluntariadoDTO selecionado() {
         return programasTable.getSelectionModel().getSelectedItem();
     }
 
-    private ProgramaDTO getProgramaFromFields() {
-        ProgramaDTO p = new ProgramaDTO();
+    private ProgramaVoluntariadoDTO getProgramaFromFields() {
+    	ProgramaVoluntariadoDTO p = new ProgramaVoluntariadoDTO();
         p.setTitulo(txtTitulo.getText());
         p.setDescricao(txtDescricao.getText());
         p.setTipo(tipoPrograma.getValue().toString()); // converte para string
