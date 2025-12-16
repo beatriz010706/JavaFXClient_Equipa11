@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
@@ -7,30 +6,24 @@
 <VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lp.JavaFXClient_Equipa11.controller.ParceiroController"
-      spacing="10"
-      style="-fx-padding:10;">
+      spacing="10" style="-fx-padding:10;">
+    <Label text="Parceiro" style="-fx-font-size:16;-fx-font-weight:bold;"/>
 
-    <Label text="Parceiro"
-           style="-fx-font-size:16;-fx-font-weight:bold;"/>
-
-    <!-- LOGIN / REGISTO -->
     <HBox spacing="10">
         <TextField fx:id="txtNome" promptText="Nome"/>
         <TextField fx:id="txtEmail" promptText="Email"/>
-        <PasswordField fx:id="txtPassword" promptText="Password"/>
+        <TextField fx:id="txtPassword" promptText="Password"/>
         <Button text="Registar" onAction="#registar"/>
         <Button text="Login" onAction="#login"/>
     </HBox>
 
-    <!-- FORM PROGRAMA -->
     <HBox spacing="10">
         <TextField fx:id="txtTitulo" promptText="Título"/>
         <TextField fx:id="txtDescricao" promptText="Descrição"/>
-        <ComboBox fx:id="tipoPrograma" promptText="Tipo"/>
+        <ComboBox fx:id="tipoPrograma"/>
         <TextField fx:id="txtVagas" promptText="Vagas"/>
     </HBox>
 
-    <!-- TABELA -->
     <TableView fx:id="programasTable" prefHeight="250">
         <columns>
             <TableColumn fx:id="idCol" text="ID" prefWidth="60"/>
@@ -40,7 +33,6 @@
         </columns>
     </TableView>
 
-    <!-- AÇÕES -->
     <HBox spacing="10">
         <Button text="Registar Programa" onAction="#registarPrograma"/>
         <Button text="Editar Programa" onAction="#editarPrograma"/>
@@ -48,5 +40,4 @@
         <Button text="Aprovar Candidatura" onAction="#aprovarCandidatura"/>
         <Button text="Rejeitar Candidatura" onAction="#rejeitarCandidatura"/>
     </HBox>
-
 </VBox>
