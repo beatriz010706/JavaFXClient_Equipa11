@@ -14,24 +14,21 @@
            style="-fx-font-size:16;-fx-font-weight:bold;"/>
 
     <HBox spacing="10">
-        <Label text="Horas:"/>
-        <TextField fx:id="txtHoras" promptText="Número de horas"/>
+        <Label text="ProgramaEstudante ID:"/>
+        <TextField fx:id="txtProgramaEstudanteId" promptText="Ex: 5"/>
     </HBox>
 
-    <TableView fx:id="programaEstudanteTable" prefHeight="250">
-        <columns>
-            <TableColumn fx:id="idCol" text="ID" prefWidth="80"/>
-            <TableColumn fx:id="programaCol" text="Programa" prefWidth="200"/>
-            <TableColumn fx:id="horasCol" text="Horas" prefWidth="100"/>
-            <TableColumn fx:id="estadoCol" text="Estado" prefWidth="120"/>
-        </columns>
-    </TableView>
-
     <HBox spacing="10">
+        <Label text="Horas:"/>
+        <TextField fx:id="txtHoras" promptText="Ex: 10"/>
+    </HBox>
+
+    <VBox spacing="8">
         <Button text="Adicionar Horas" onAction="#adicionarHoras"/>
+        <Button text="Consultar Progresso" onAction="#getProgresso"/>
         <Button text="Concluir Programa" onAction="#concluirPrograma"/>
         <Button text="Emitir Diploma" onAction="#emitirDiploma"/>
         <Button text="Cancelar Participação" onAction="#cancelarParticipacao"/>
-    </HBox>
+    </VBox>
 
 </VBox>

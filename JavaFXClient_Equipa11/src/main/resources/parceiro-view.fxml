@@ -10,37 +10,43 @@
       spacing="10"
       style="-fx-padding:10;">
 
-    <Label text="Gestão de Parceiros"
+    <Label text="Parceiro"
            style="-fx-font-size:16;-fx-font-weight:bold;"/>
 
+    <!-- LOGIN / REGISTO -->
     <HBox spacing="10">
-        <Label text="Parceiro ID:"/>
-        <TextField fx:id="txtParceiroId" promptText="ID do Parceiro"/>
-        <Label text="Tipo de Programa:"/>
-        <ComboBox fx:id="tipoPrograma"/>
+        <TextField fx:id="txtNome" promptText="Nome"/>
+        <TextField fx:id="txtEmail" promptText="Email"/>
+        <PasswordField fx:id="txtPassword" promptText="Password"/>
+        <Button text="Registar" onAction="#registar"/>
+        <Button text="Login" onAction="#login"/>
     </HBox>
 
+    <!-- FORM PROGRAMA -->
+    <HBox spacing="10">
+        <TextField fx:id="txtTitulo" promptText="Título"/>
+        <TextField fx:id="txtDescricao" promptText="Descrição"/>
+        <ComboBox fx:id="tipoPrograma" promptText="Tipo"/>
+        <TextField fx:id="txtVagas" promptText="Vagas"/>
+    </HBox>
+
+    <!-- TABELA -->
     <TableView fx:id="programasTable" prefHeight="250">
         <columns>
-            <TableColumn fx:id="idCol" text="ID" prefWidth="80"/>
-            <TableColumn fx:id="tituloCol" text="Título" prefWidth="220"/>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="tituloCol" text="Título" prefWidth="200"/>
             <TableColumn fx:id="tipoCol" text="Tipo" prefWidth="120"/>
             <TableColumn fx:id="vagasCol" text="Vagas" prefWidth="80"/>
         </columns>
     </TableView>
 
+    <!-- AÇÕES -->
     <HBox spacing="10">
         <Button text="Registar Programa" onAction="#registarPrograma"/>
         <Button text="Editar Programa" onAction="#editarPrograma"/>
         <Button text="Eliminar Programa" onAction="#eliminarPrograma"/>
-    </HBox>
-
-    <HBox spacing="10">
         <Button text="Aprovar Candidatura" onAction="#aprovarCandidatura"/>
         <Button text="Rejeitar Candidatura" onAction="#rejeitarCandidatura"/>
     </HBox>
 
 </VBox>
-
-
-
