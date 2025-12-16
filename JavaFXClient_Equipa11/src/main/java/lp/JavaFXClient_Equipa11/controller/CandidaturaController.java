@@ -1,18 +1,24 @@
 package lp.JavaFXClient_Equipa11.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import lp.JavaFXClient_Equipa11.modelDTO.Estado;
 import lp.JavaFXClient_Equipa11.modelDTO.CandidaturaDTO;
 import lp.JavaFXClient_Equipa11.modelDTO.Estado;
 import lp.JavaFXClient_Equipa11.services.ApiService;
+import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.List;
+/**
+ * @author gonçalo silva
+ */
+
 
 public class CandidaturaController {
-	@FXML private TableView<CandidaturaDTO> candidaturasTable;
+
+    @FXML private TableView<CandidaturaDTO> candidaturasTable;
     @FXML private TableColumn<CandidaturaDTO, Long> idCol;
     @FXML private TableColumn<CandidaturaDTO, String> estudanteCol;
     @FXML private TableColumn<CandidaturaDTO, String> programaCol;
@@ -27,6 +33,28 @@ public class CandidaturaController {
         estudanteCol.setCellValueFactory(new PropertyValueFactory<>("estudanteId"));
         programaCol.setCellValueFactory(new PropertyValueFactory<>("programaId"));
         estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        listar();
+    }
+    
+    @FXML
+    public void registarCandidatura() {
+
+        String json = """
+        {
+          "estudanteId": %d,
+          "programaId": %d,
+          "estado": "PENDENTE",
+        }
+        """.formatted(
+                estudanteCol.getId(),   // ou ComboBox
+                programaCol.getId()   // ou ComboBox
+        );
+
+        System.out.println("JSON enviado:\n" + json);
+
+        api.post("/candidaturas", json);
+
+        alert("Candidatura registada com sucesso!");
         listar();
     }
 
