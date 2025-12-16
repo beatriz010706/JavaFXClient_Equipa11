@@ -1,5 +1,6 @@
 package lp.JavaFXClient_Equipa11.controller;
 
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,29 +15,12 @@ public class MainController {
         abrirMenuUtilizador();
     }
 
-    @FXML private void abrirMenuUtilizador() {
-        loadView("/utilizador-view.fxml");
-    }
-
-    @FXML private void abrirMenuEstudante() {
-        loadView("/estudante-view.fxml");
-    }
-
-    @FXML private void abrirMenuParceiro() {
-        loadView("/parceiro-view.fxml");
-    }
-
-    @FXML private void abrirMenuProgramas() {
-        loadView("/programa-view.fxml");
-    }
-
-    @FXML private void abrirMenuCandidaturas() {
-        loadView("/candidaturas-view.fxml");
-    }
-
-    @FXML private void abrirMenuProgramaEstudante() {
-        loadView("/prog-estudante-view.fxml");
-    }
+    @FXML private void abrirMenuUtilizador() { loadView("/utilizador-view.fxml"); }
+    @FXML private void abrirMenuEstudante() { loadView("/estudante-view.fxml"); }
+    @FXML private void abrirMenuParceiro() { loadView("/parceiro-view.fxml"); }
+    @FXML private void abrirMenuProgramas() { loadView("/programa-view.fxml"); }
+    @FXML private void abrirMenuCandidaturas() { loadView("/candidaturas-view.fxml"); }
+    @FXML private void abrirMenuProgramaEstudante() { loadView("/prog-estudante-view.fxml"); }
 
     private void loadView(String fxml) {
         try {

@@ -1,20 +1,15 @@
 package lp.JavaFXClient_Equipa11.controller;
 
-
-import lp.JavaFXClient_Equipa11.modelDTO.Estado;
-import lp.JavaFXClient_Equipa11.modelDTO.CandidaturaDTO;
-import lp.JavaFXClient_Equipa11.services.ApiService;
-import java.util.List;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lp.JavaFXClient_Equipa11.modelDTO.CandidaturaDTO;
+import lp.JavaFXClient_Equipa11.modelDTO.Estado;
+import lp.JavaFXClient_Equipa11.services.ApiService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * @author gonçalo silva
- */
-
+import java.util.List;
 
 public class CandidaturaController {
 
@@ -52,14 +47,10 @@ public class CandidaturaController {
     public void atualizarEstado() {
         CandidaturaDTO c = candidaturasTable.getSelectionModel().getSelectedItem();
         if (c == null) return;
-
-        api.put("/candidaturas/" + c.getId() + "/estado",
-                "{\"estado\":\"APROVADA\"}");
+        api.put("/candidaturas/" + c.getId() + "/estado", "{\"estado\":\"APROVADA\"}");
         alert("Estado atualizado!");
         listar();
     }
 
-    private void alert(String m) {
-        new Alert(Alert.AlertType.INFORMATION, m).show();
-    }
+    private void alert(String m) { new Alert(Alert.AlertType.INFORMATION, m).show(); }
 }
