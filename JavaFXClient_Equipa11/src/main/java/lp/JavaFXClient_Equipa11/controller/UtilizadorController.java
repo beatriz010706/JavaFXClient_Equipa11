@@ -1,6 +1,5 @@
 package lp.JavaFXClient_Equipa11.controller;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import lp.JavaFXClient_Equipa11.services.ApiService;
@@ -40,7 +39,7 @@ public class UtilizadorController {
         if (tipoUtilizador.getValue().equals("ESTUDANTE")) {
             endpoint = "/estudantes/registar";
             json = """
-                    {"nome":"%s","email":"%s","password":"%s","curso":"%s","numeroAluno":%s}
+                    {"nome":"%s","email":"%s","password":"%s","curso":"%s","numeroAluno":%d}
                     """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText(),
                             txtCurso.getText(), txtNumeroAluno.getText());
         } else {
