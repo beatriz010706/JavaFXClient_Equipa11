@@ -52,7 +52,7 @@ public class ParceiroController {
     @FXML
     public void login() {
         String json = """
-                {"email":"%s","senha":"%s"}
+                {"email":"%s","password":"%s"}
                 """.formatted(txtEmail.getText(), txtPassword.getText());
         api.post("/parceiros/login", json);
         alert("Login efetuado.");
