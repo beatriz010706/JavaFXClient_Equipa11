@@ -39,7 +39,7 @@ public class UtilizadorController {
         if (tipoUtilizador.getValue().equals("ESTUDANTE")) {
             endpoint = "/estudantes/registar";
             json = """
-                    {"nome":"%s","email":"%s","password":"%s","curso":"%s","numeroAluno":%s}
+                    {"nome":"%s","email":"%s","password":"%s","curso":"%s","numeroAluno":%d}
                     """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText(),
                             txtCurso.getText(), txtNumeroAluno.getText());
         } else {
