@@ -1,8 +1,9 @@
 package lp.JavaFXClient_Equipa11.controller;
 
 import lp.JavaFXClient_Equipa11.modelDTO.Estado;
+import lp.JavaFXClient_Equipa11.modelDTO.EstudanteDTO;
+import lp.JavaFXClient_Equipa11.modelDTO.ProgramaDTO;
 import lp.JavaFXClient_Equipa11.modelDTO.CandidaturaDTO;
-import lp.JavaFXClient_Equipa11.modelDTO.Estado;
 import lp.JavaFXClient_Equipa11.services.ApiService;
 import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -10,6 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+
 
 /**
  * @author gonçalo silva
@@ -23,6 +26,8 @@ public class CandidaturaController {
     @FXML private TableColumn<CandidaturaDTO, String> estudanteCol;
     @FXML private TableColumn<CandidaturaDTO, String> programaCol;
     @FXML private TableColumn<CandidaturaDTO, Estado> estadoCol;
+    @FXML private ComboBox<EstudanteDTO> estudanteCombo;
+    @FXML private ComboBox<ProgramaDTO> programaCombo;
 
     private final ApiService api = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
@@ -38,23 +43,23 @@ public class CandidaturaController {
     
     @FXML
     public void registarCandidatura() {
+        EstudanteDTO e = estudanteCombo.getValue();
+        ProgramaDTO p = programaCombo.getValue();
+        
+        if (e == null || p == null) {
+            alert("Escolha estudante e programa!");
+            return;
+        }
 
         String json = """
-        {
-          "estudanteId": %d,
-          "programaId": %d,
-          "estado": "PENDENTE",
-        }
-        """.formatted(
-                estudanteCol.getId(),   // ou ComboBox
-                programaCol.getId()   // ou ComboBox
-        );
+            {
+              "estudanteId": %s,
+              "programaId": %s
+            }
+            """.formatted(e.getId(), p.getId());
 
-        System.out.println("JSON enviado:\n" + json);
-
-        api.post("/candidaturas", json);
-
-        alert("Candidatura registada com sucesso!");
+        api.post("/candidaturas/", json);
+        alert("Candidatura enviada!");
         listar();
     }
 
