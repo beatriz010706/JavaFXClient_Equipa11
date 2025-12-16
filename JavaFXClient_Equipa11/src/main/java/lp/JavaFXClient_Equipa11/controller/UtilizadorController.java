@@ -33,24 +33,27 @@ public class UtilizadorController {
 
     @FXML
     public void registar() {
-        String endpoint;
-        String json;
+    	String endpoint;
+    	String json;
+    
+    		if (tipoUtilizador.getValue().equals("ESTUDANTE")) {
+    			endpoint = "/estudantes/registar";
+    			if (txtNumeroAluno.getText().isBlank()) {
+    				alert("Número de aluno obrigatório.");
+    				return;
+    			}
+    int numeroAluno = Integer.parseInt(txtNumeroAluno.getText()); // COVERTER 1º STRING PARA INT
 
-        if (tipoUtilizador.getValue().equals("ESTUDANTE")) {
-            endpoint = "/estudantes/registar";
-            json = """
-                    {"nome":"%s","email":"%s","password":"%s","curso":"%s","numeroAluno":%d}
-                    """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText(),
-                            txtCurso.getText(), txtNumeroAluno.getText());
-        } else {
-            endpoint = "/parceiros/registar";
-            json = """
-                    {"nome":"%s","email":"%s","password":"%s","tipo":"%s"}
-                    """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText(),
-                            tipoParceiro.getValue());
-        }
-        api.post(endpoint, json);
-        alert("Registo efetuado com sucesso.");
+    json = """
+    {"nome":"%s","email":"%s","password":"%s","curso":"%s","numeroAluno":%d}
+    """.formatted(
+    		txtNome.getText(),
+    		txtEmail.getText(),
+    		txtPassword.getText(),
+    		txtCurso.getText(),
+    		numeroAluno
+    		);
+    	}
     }
 
     @FXML
