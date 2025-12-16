@@ -1,8 +1,8 @@
 package lp.JavaFXClient_Equipa11.controller;
 
-import lp.JavaFXClient_Equipa11.modelDTO.Estado;
+import lp.JavaFXClient_Equipa11.modelDTO.Estado; 
 import lp.JavaFXClient_Equipa11.modelDTO.EstudanteDTO;
-import lp.JavaFXClient_Equipa11.modelDTO.ProgramaDTO;
+import lp.JavaFXClient_Equipa11.modelDTO.ProgramaVoluntariadoDTO;
 import lp.JavaFXClient_Equipa11.modelDTO.CandidaturaDTO;
 import lp.JavaFXClient_Equipa11.services.ApiService;
 import java.util.List;
@@ -27,7 +27,7 @@ public class CandidaturaController {
     @FXML private TableColumn<CandidaturaDTO, String> programaCol;
     @FXML private TableColumn<CandidaturaDTO, Estado> estadoCol;
     @FXML private ComboBox<EstudanteDTO> estudanteCombo;
-    @FXML private ComboBox<ProgramaDTO> programaCombo;
+    @FXML private ComboBox<ProgramaVoluntariadoDTO> programaCombo;
 
     private final ApiService api = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +44,7 @@ public class CandidaturaController {
     @FXML
     public void registarCandidatura() {
         EstudanteDTO e = estudanteCombo.getValue();
-        ProgramaDTO p = programaCombo.getValue();
+        ProgramaVoluntariadoDTO p = programaCombo.getValue();
         
         if (e == null || p == null) {
             alert("Escolha estudante e programa!");
