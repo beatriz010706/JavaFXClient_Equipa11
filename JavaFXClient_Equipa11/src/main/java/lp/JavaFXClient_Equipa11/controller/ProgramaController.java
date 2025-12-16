@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lp.JavaFXClient_Equipa11.modelDTO.ProgramaDTO;
-import lp.JavaFXClient_Equipa11.modelDTO.TipoPrograma;
 import lp.JavaFXClient_Equipa11.services.ApiService;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public class ProgramaController {
     @FXML private TableView<ProgramaDTO> programasTable;
     @FXML private TableColumn<ProgramaDTO, Long> idCol;
     @FXML private TableColumn<ProgramaDTO, String> tituloCol;
-    @FXML private TableColumn<ProgramaDTO, TipoPrograma> tipoCol;
+    @FXML private TableColumn<ProgramaDTO, String> tipoCol;
     @FXML private TableColumn<ProgramaDTO, Integer> vagasCol;
 
     private final ApiService api = new ApiService();
@@ -28,48 +27,57 @@ public class ProgramaController {
         tituloCol.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         vagasCol.setCellValueFactory(new PropertyValueFactory<>("vagas"));
+
         listarProgramas();
     }
+
+    /* ===================== CONSULTAS ===================== */
 
     @FXML
     public void listarProgramas() {
         try {
             String json = api.get("/programas");
             List<ProgramaDTO> lista =
-                    mapper.readValue(json, new TypeReference<List<ProgramaDTO>>() {});
+                    mapper.readValue(json, new TypeReference<>() {});
             programasTable.getItems().setAll(lista);
         } catch (Exception e) {
             alert(e.getMessage());
         }
     }
 
-    // corresponde a listarCandidaturasPendentes()
     @FXML
     public void listarCandidaturasPendentes() {
-        ProgramaDTO p = programasTable.getSelectionModel().getSelectedItem();
+        ProgramaDTO p = selecionado();
         if (p == null) return;
+
         api.get("/programas/" + p.getId() + "/candidaturas/pendentes");
-        alert("Candidaturas pendentes consultadas");
+        alert("Candidaturas pendentes listadas.");
     }
 
-    // corresponde a verificarVagasDisponiveis()
     @FXML
     public void verificarVagasDisponiveis() {
-        ProgramaDTO p = programasTable.getSelectionModel().getSelectedItem();
+        ProgramaDTO p = selecionado();
         if (p == null) return;
+
         alert("Vagas disponíveis: " + p.getVagas());
     }
 
-    // corresponde a listarParticipantes()
     @FXML
     public void listarParticipantes() {
-        ProgramaDTO p = programasTable.getSelectionModel().getSelectedItem();
+        ProgramaDTO p = selecionado();
         if (p == null) return;
+
         api.get("/programas/" + p.getId() + "/participantes");
-        alert("Participantes listados");
+        alert("Participantes listados.");
     }
 
-    private void alert(String m) {
-        new Alert(Alert.AlertType.INFORMATION, m).show();
+    /* ===================== AUX ===================== */
+
+    private ProgramaDTO selecionado() {
+        return programasTable.getSelectionModel().getSelectedItem();
+    }
+
+    private void alert(String msg) {
+        new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
 }

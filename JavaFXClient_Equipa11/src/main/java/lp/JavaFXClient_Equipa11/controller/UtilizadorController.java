@@ -7,7 +7,8 @@ import lp.JavaFXClient_Equipa11.services.ApiService;
 public class UtilizadorController {
 
     @FXML private ComboBox<String> tipoUtilizador;
-    @FXML private TextField txtNome, txtEmail;
+    @FXML private TextField txtNome;
+    @FXML private TextField txtEmail;
     @FXML private PasswordField txtPassword;
 
     private final ApiService api = new ApiService();
@@ -26,10 +27,14 @@ public class UtilizadorController {
 
         String json = """
         {"nome":"%s","email":"%s","password":"%s"}
-        """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText());
+        """.formatted(
+                txtNome.getText(),
+                txtEmail.getText(),
+                txtPassword.getText()
+        );
 
         api.post(endpoint, json);
-        alert("Registo efetuado com sucesso!");
+        alert("Registo efetuado com sucesso.");
     }
 
     @FXML
@@ -40,14 +45,16 @@ public class UtilizadorController {
 
         String json = """
         {"email":"%s","senha":"%s"}
-        """.formatted(txtEmail.getText(), txtPassword.getText());
+        """.formatted(
+                txtEmail.getText(),
+                txtPassword.getText()
+        );
 
         api.post(endpoint, json);
-        alert("Login efetuado com sucesso!");
+        alert("Login efetuado.");
     }
 
     private void alert(String msg) {
-        new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
+        new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
 }
-

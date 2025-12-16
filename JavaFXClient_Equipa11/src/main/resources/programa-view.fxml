@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lp.JavaFXClient_Equipa11.controller.ProgramaController"
-      spacing="10" style="-fx-padding:10;">
+      spacing="10"
+      style="-fx-padding:10;">
 
-    <HBox spacing="10">
-        <Label text="Programas"
-               style="-fx-font-size:16;-fx-font-weight:bold;"/>
-        <Pane HBox.hgrow="ALWAYS"/>
-        <Button text="Refresh" onAction="#listarProgramas"/>
-        <Button text="Ver Vagas" onAction="#verificarVagasDisponiveis"/>
-    </HBox>
+    <Label text="Programas"
+           style="-fx-font-size:16;-fx-font-weight:bold;"/>
 
-    <TableView fx:id="programasTable">
+    <TableView fx:id="programasTable" prefHeight="300">
         <columns>
             <TableColumn fx:id="idCol" text="ID" prefWidth="60"/>
-            <TableColumn fx:id="tituloCol" text="Título" prefWidth="200"/>
+            <TableColumn fx:id="tituloCol" text="Título" prefWidth="220"/>
             <TableColumn fx:id="tipoCol" text="Tipo" prefWidth="120"/>
             <TableColumn fx:id="vagasCol" text="Vagas" prefWidth="80"/>
         </columns>
     </TableView>
 
     <HBox spacing="10">
+        <Button text="Refresh" onAction="#listarProgramas"/>
+        <Button text="Vagas Disponíveis" onAction="#verificarVagasDisponiveis"/>
         <Button text="Candidaturas Pendentes" onAction="#listarCandidaturasPendentes"/>
         <Button text="Participantes" onAction="#listarParticipantes"/>
     </HBox>
+
 </VBox>

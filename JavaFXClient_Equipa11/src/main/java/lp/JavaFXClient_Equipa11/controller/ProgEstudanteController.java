@@ -1,50 +1,97 @@
 package lp.JavaFXClient_Equipa11.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import lp.JavaFXClient_Equipa11.services.ApiService;
 
 public class ProgEstudanteController {
 
-    @FXML private TextField txtHoras;
-    @FXML private TableView<?> programaEstudanteTable;
+    @FXML
+    private TextField txtProgramaEstudanteId;
+
+    @FXML
+    private TextField txtHoras;
 
     private final ApiService api = new ApiService();
 
+    /* ===================== ADICIONAR HORAS ===================== */
+
     @FXML
     public void adicionarHoras() {
+        String id = txtProgramaEstudanteId.getText();
         String horas = txtHoras.getText();
-        if (horas.isBlank()) { alert("Informe as horas a adicionar."); return; }
-        api.post("/programa-estudante/adicionar-horas", "{\"horas\":" + horas + "}");
-        alert("Horas adicionadas com sucesso!");
+
+        if (id.isBlank() || horas.isBlank()) {
+            alert("Indique o ID do programa do estudante e as horas.");
+            return;
+        }
+
+        api.post("/programas-estudante/" + id + "/horas?valor=" + horas, "");
+        alert("Horas adicionadas com sucesso.");
     }
+
+    /* ===================== CONCLUIR PROGRAMA ===================== */
 
     @FXML
     public void concluirPrograma() {
-        api.post("/programa-estudante/concluir", "");
-        alert("Programa concluído!");
+        String id = txtProgramaEstudanteId.getText();
+
+        if (id.isBlank()) {
+            alert("Indique o ID do programa do estudante.");
+            return;
+        }
+
+        api.post("/programas-estudante/" + id + "/concluir", "");
+        alert("Programa concluído.");
     }
+
+    /* ===================== EMITIR DIPLOMA ===================== */
 
     @FXML
     public void emitirDiploma() {
-        api.post("/programa-estudante/diploma", "");
-        alert("Diploma emitido!");
+        String id = txtProgramaEstudanteId.getText();
+
+        if (id.isBlank()) {
+            alert("Indique o ID do programa do estudante.");
+            return;
+        }
+
+        api.post("/programas-estudante/" + id + "/diploma", "");
+        alert("Diploma emitido.");
     }
+
+    /* ===================== PROGRESSO ===================== */
 
     @FXML
     public void getProgresso() {
-        api.get("/programa-estudante/progresso");
-        alert("Progresso consultado!");
+        String id = txtProgramaEstudanteId.getText();
+
+        if (id.isBlank()) {
+            alert("Indique o ID do programa do estudante.");
+            return;
+        }
+
+        api.get("/programas-estudante/" + id + "/progresso");
+        alert("Progresso consultado.");
     }
+
+    /* ===================== CANCELAR ===================== */
 
     @FXML
     public void cancelarParticipacao() {
-        api.post("/programa-estudante/cancelar", "");
-        alert("Participação cancelada!");
+        String id = txtProgramaEstudanteId.getText();
+
+        if (id.isBlank()) {
+            alert("Indique o ID do programa do estudante.");
+            return;
+        }
+
+        api.post("/programas-estudante/" + id + "/cancelar", "");
+        alert("Participação cancelada.");
     }
 
     private void alert(String msg) {
-        new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
+        new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
 }
-
