@@ -3,8 +3,7 @@ package lp.JavaFXClient_Equipa11.controller;
  * @author beatriz silva
  */
 
-
-import com.fasterxml.jackson.core.type.TypeReference; 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,49 +16,42 @@ import java.util.List;
 
 public class ParceiroController {
 
-    @FXML private TextField txtNome, txtEmail, txtPassword;
-    @FXML private TextField txtTitulo, txtDescricao, txtVagas;
+    @FXML private TextField txtTitulo;
+    @FXML private TextField txtDescricao;
+    @FXML private TextField txtVagas;
+    @FXML private TextField txtLocal;
     @FXML private ComboBox<TipoPrograma> tipoPrograma;
+    
     @FXML private TableView<ProgramaVoluntariadoDTO> programasTable;
     @FXML private TableColumn<ProgramaVoluntariadoDTO, Long> idCol;
     @FXML private TableColumn<ProgramaVoluntariadoDTO, String> tituloCol;
-    @FXML private TableColumn<ProgramaVoluntariadoDTO, TipoPrograma> tipoCol;
+    @FXML private TableColumn<ProgramaVoluntariadoDTO, String> tipoCol;
+    @FXML private TableColumn<ProgramaVoluntariadoDTO, String> localCol;
     @FXML private TableColumn<ProgramaVoluntariadoDTO, Integer> vagasCol;
+    @FXML private TableColumn<ProgramaVoluntariadoDTO, Integer> vagasOcupadasCol;
 
     private final ApiService api = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
 
     @FXML
     public void initialize() {
+        // Preenche ComboBox com tipos de programa
         tipoPrograma.getItems().setAll(TipoPrograma.values());
+
+        // Configura colunas da tabela
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         tituloCol.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-        tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo")); // precisa do getter getTipo()
+        localCol.setCellValueFactory(new PropertyValueFactory<>("local"));
         vagasCol.setCellValueFactory(new PropertyValueFactory<>("vagas"));
+        vagasOcupadasCol.setCellValueFactory(new PropertyValueFactory<>("vagasOcupadas"));
+
+        // Lista programas ao iniciar
         listarProgramas();
     }
 
-    /* ===================== AUTENTICAÇÃO ===================== */
-    @FXML
-    public void registar() {
-        String json = """
-                {"nome":"%s","email":"%s","password":"%s"}
-                """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText());
-        api.post("/parceiros/registar", json);
-        alert("Parceiro registado com sucesso.");
-    }
+    /** =================== CRUD Programas =================== */
 
-    @FXML
-    public void login() {
-        String json = """
-                {"email":"%s","password":"%s"}
-                """.formatted(txtEmail.getText(), txtPassword.getText());
-        api.post("/parceiros/login", json);
-        alert("Login efetuado.");
-        listarProgramas();
-    }
-
-    /* ===================== PROGRAMAS ===================== */
     @FXML
     public void listarProgramas() {
         try {
@@ -67,77 +59,83 @@ public class ParceiroController {
             List<ProgramaVoluntariadoDTO> lista = mapper.readValue(json, new TypeReference<>() {});
             programasTable.getItems().setAll(lista);
         } catch (Exception e) {
-            alert(e.getMessage());
+            alert("Erro ao listar programas: " + e.getMessage());
         }
     }
 
     @FXML
     public void registarPrograma() {
         try {
-        	ProgramaVoluntariadoDTO p = getProgramaFromFields();
-            String json = new ObjectMapper().writeValueAsString(p);
+            ProgramaVoluntariadoDTO p = getProgramaFromFields();
+            String json = mapper.writeValueAsString(p);
             api.post("/programas/registar", json);
-            alert("Programa registado.");
+            alert("Programa registado com sucesso!");
             listarProgramas();
         } catch (Exception e) {
-            alert("Erro: " + e.getMessage());
+            alert("Erro ao registar programa: " + e.getMessage());
         }
     }
 
     @FXML
     public void editarPrograma() {
+        ProgramaVoluntariadoDTO selecionado = programasTable.getSelectionModel().getSelectedItem();
+        if (selecionado == null) { alert("Selecione um programa."); return; }
+
         try {
-        	ProgramaVoluntariadoDTO p = selecionado();
-            if (p == null) return;
-            ProgramaVoluntariadoDTO novo = getProgramaFromFields();
-            String json = new ObjectMapper().writeValueAsString(novo);
-            api.put("/programas/" + p.getId(), json);
-            alert("Programa editado.");
+            ProgramaVoluntariadoDTO p = getProgramaFromFields();
+            String json = mapper.writeValueAsString(p);
+            api.put("/programas/" + selecionado.getId(), json);
+            alert("Programa editado com sucesso!");
             listarProgramas();
         } catch (Exception e) {
-            alert("Erro: " + e.getMessage());
+            alert("Erro ao editar programa: " + e.getMessage());
         }
     }
 
     @FXML
     public void eliminarPrograma() {
-    	ProgramaVoluntariadoDTO p = selecionado();
-        if (p == null) return;
-        api.delete("/programas/" + p.getId());
+        ProgramaVoluntariadoDTO selecionado = programasTable.getSelectionModel().getSelectedItem();
+        if (selecionado == null) { alert("Selecione um programa."); return; }
+
+        api.delete("/programas/" + selecionado.getId());
         alert("Programa eliminado.");
         listarProgramas();
     }
 
+    /** =================== Candidaturas =================== */
+
     @FXML
     public void aprovarCandidatura() {
-    	ProgramaVoluntariadoDTO p = selecionado();
-        if (p == null) return;
-        api.post("/programas/" + p.getId() + "/candidaturas/aprovar", "");
+        ProgramaVoluntariadoDTO selecionado = programasTable.getSelectionModel().getSelectedItem();
+        if (selecionado == null) { alert("Selecione um programa."); return; }
+
+        api.post("/programas/" + selecionado.getId() + "/candidaturas/aprovar", "");
         alert("Candidatura aprovada.");
     }
 
     @FXML
     public void rejeitarCandidatura() {
-    	ProgramaVoluntariadoDTO p = selecionado();
-        if (p == null) return;
-        api.post("/programas/" + p.getId() + "/candidaturas/rejeitar", "");
+        ProgramaVoluntariadoDTO selecionado = programasTable.getSelectionModel().getSelectedItem();
+        if (selecionado == null) { alert("Selecione um programa."); return; }
+
+        api.post("/programas/" + selecionado.getId() + "/candidaturas/rejeitar", "");
         alert("Candidatura rejeitada.");
     }
 
-    private ProgramaVoluntariadoDTO selecionado() {
-        return programasTable.getSelectionModel().getSelectedItem();
-    }
+    /** =================== Auxiliares =================== */
 
     private ProgramaVoluntariadoDTO getProgramaFromFields() {
-    	ProgramaVoluntariadoDTO p = new ProgramaVoluntariadoDTO();
+        ProgramaVoluntariadoDTO p = new ProgramaVoluntariadoDTO();
         p.setTitulo(txtTitulo.getText());
         p.setDescricao(txtDescricao.getText());
-        p.setTipo(tipoPrograma.getValue().toString()); // converte para string
+        p.setTipo(tipoPrograma.getValue() != null ? tipoPrograma.getValue().toString() : "");
+        p.setLocal(txtLocal.getText());
         p.setVagas(Integer.parseInt(txtVagas.getText()));
+        p.setVagasOcupadas(0); // inicial
         return p;
     }
 
-    private void alert(String m) {
-        new Alert(Alert.AlertType.INFORMATION, m).show();
+    private void alert(String msg) {
+        new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
 }
