@@ -39,7 +39,7 @@ public class CandidaturaController {
     @FXML
     public void listar() {
         try {
-            String json = api.get("/candidaturas");
+        	String json = api.get("/candidaturas/todas");
             List<CandidaturaDTO> lista =
                     mapper.readValue(json, new TypeReference<>() {});
             candidaturasTable.getItems().setAll(lista);
