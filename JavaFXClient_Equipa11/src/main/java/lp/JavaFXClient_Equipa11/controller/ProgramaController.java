@@ -1,5 +1,6 @@
 package lp.JavaFXClient_Equipa11.controller;
 
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -27,18 +28,14 @@ public class ProgramaController {
         tituloCol.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         vagasCol.setCellValueFactory(new PropertyValueFactory<>("vagas"));
-
         listarProgramas();
     }
-
-    /* ===================== CONSULTAS ===================== */
 
     @FXML
     public void listarProgramas() {
         try {
             String json = api.get("/programas");
-            List<ProgramaDTO> lista =
-                    mapper.readValue(json, new TypeReference<>() {});
+            List<ProgramaDTO> lista = mapper.readValue(json, new TypeReference<>() {});
             programasTable.getItems().setAll(lista);
         } catch (Exception e) {
             alert(e.getMessage());
@@ -49,7 +46,6 @@ public class ProgramaController {
     public void listarCandidaturasPendentes() {
         ProgramaDTO p = selecionado();
         if (p == null) return;
-
         api.get("/programas/" + p.getId() + "/candidaturas/pendentes");
         alert("Candidaturas pendentes listadas.");
     }
@@ -58,7 +54,6 @@ public class ProgramaController {
     public void verificarVagasDisponiveis() {
         ProgramaDTO p = selecionado();
         if (p == null) return;
-
         alert("Vagas disponíveis: " + p.getVagas());
     }
 
@@ -66,18 +61,11 @@ public class ProgramaController {
     public void listarParticipantes() {
         ProgramaDTO p = selecionado();
         if (p == null) return;
-
         api.get("/programas/" + p.getId() + "/participantes");
         alert("Participantes listados.");
     }
 
-    /* ===================== AUX ===================== */
+    private ProgramaDTO selecionado() { return programasTable.getSelectionModel().getSelectedItem(); }
 
-    private ProgramaDTO selecionado() {
-        return programasTable.getSelectionModel().getSelectedItem();
-    }
-
-    private void alert(String msg) {
-        new Alert(Alert.AlertType.INFORMATION, msg).show();
-    }
+    private void alert(String msg) { new Alert(Alert.AlertType.INFORMATION, msg).show(); }
 }

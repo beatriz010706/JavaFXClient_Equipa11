@@ -47,4 +47,8 @@ public class ProgramaDTO {
 
     public int getVagasOcupadas() { return vagasOcupadas; }
     public void setVagasOcupadas(int vagasOcupadas) { this.vagasOcupadas = vagasOcupadas; }
+
+	public void setTipo(String string) {
+		// TODO Auto-generated method stub	
+	}
 }//fim classe

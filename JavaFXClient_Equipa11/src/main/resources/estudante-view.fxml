@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
@@ -9,13 +8,21 @@
       fx:controller="lp.JavaFXClient_Equipa11.controller.EstudanteController"
       spacing="10"
       style="-fx-padding:10;">
-
-    <Label text="Área do Estudante"
-           style="-fx-font-size:16;-fx-font-weight:bold;"/>
+    <Label text="Área do Estudante" style="-fx-font-size:16;-fx-font-weight:bold;"/>
 
     <HBox spacing="10">
         <Label text="ID do Estudante:"/>
         <TextField fx:id="txtEstudanteId" promptText="Ex: 1"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Número de Aluno:"/>
+        <TextField fx:id="txtNumeroAluno" promptText="Ex: 12345"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Curso:"/>
+        <TextField fx:id="txtCurso" promptText="Ex: Engenharia"/>
     </HBox>
 
     <HBox spacing="10">
@@ -24,10 +31,8 @@
     </HBox>
 
     <HBox spacing="10">
-        <Button text="Consultar Histórico"
-                onAction="#consultarHistorico"/>
-        <Button text="Candidatar"
-                onAction="#candidatar"/>
+        <Button text="Consultar Histórico" onAction="#consultarHistorico"/>
+        <Button text="Candidatar" onAction="#candidatar"/>
+        <Button text="Ver Estado" onAction="#verEstado"/>
     </HBox>
-
 </VBox>
