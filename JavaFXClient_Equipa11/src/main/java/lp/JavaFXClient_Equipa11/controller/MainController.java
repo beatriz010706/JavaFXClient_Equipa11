@@ -19,7 +19,7 @@ public class MainController {
     @FXML private void abrirMenuEstudante() { loadView("/estudante-view.fxml"); }
     @FXML private void abrirMenuParceiro() { loadView("/parceiro-view.fxml"); }
     @FXML private void abrirMenuProgramas() { loadView("/programa-view.fxml"); }
-    @FXML private void abrirMenuCandidaturas() { loadView("/candidaturas-view.fxml"); }
+    @FXML private void abrirMenuCandidaturas() { loadView("/candidatura-view.fxml"); }
     @FXML private void abrirMenuProgramaEstudante() { loadView("/prog-estudante-view.fxml"); }
 
     private void loadView(String fxml) {

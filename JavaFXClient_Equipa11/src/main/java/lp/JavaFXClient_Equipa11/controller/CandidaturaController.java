@@ -12,8 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 
 public class CandidaturaController {
-
-    @FXML private TableView<CandidaturaDTO> candidaturasTable;
+	@FXML private TableView<CandidaturaDTO> candidaturasTable;
     @FXML private TableColumn<CandidaturaDTO, Long> idCol;
     @FXML private TableColumn<CandidaturaDTO, String> estudanteCol;
     @FXML private TableColumn<CandidaturaDTO, String> programaCol;
@@ -25,8 +24,8 @@ public class CandidaturaController {
     @FXML
     public void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        estudanteCol.setCellValueFactory(new PropertyValueFactory<>("estudanteNome"));
-        programaCol.setCellValueFactory(new PropertyValueFactory<>("programaTitulo"));
+        estudanteCol.setCellValueFactory(new PropertyValueFactory<>("estudanteId"));
+        programaCol.setCellValueFactory(new PropertyValueFactory<>("programaId"));
         estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
         listar();
     }
@@ -47,10 +46,15 @@ public class CandidaturaController {
     public void atualizarEstado() {
         CandidaturaDTO c = candidaturasTable.getSelectionModel().getSelectedItem();
         if (c == null) return;
-        api.put("/candidaturas/" + c.getId() + "/estado", "{\"estado\":\"APROVADA\"}");
+
+        api.put("/candidaturas/" + c.getId() + "/estado",
+                "{\"estado\":\"ACEITE\"}");
         alert("Estado atualizado!");
         listar();
     }
 
-    private void alert(String m) { new Alert(Alert.AlertType.INFORMATION, m).show(); }
+    private void alert(String m) {
+        new Alert(Alert.AlertType.INFORMATION, m).show();
+        
+    }
 }
