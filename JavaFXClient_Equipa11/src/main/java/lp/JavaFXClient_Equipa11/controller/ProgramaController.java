@@ -1,7 +1,6 @@
 package lp.JavaFXClient_Equipa11.controller;
 
-
-import com.fasterxml.jackson.core.type.TypeReference; 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -26,8 +25,9 @@ public class ProgramaController {
     public void initialize() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         tituloCol.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-        tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         vagasCol.setCellValueFactory(new PropertyValueFactory<>("vagas"));
+        tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+
         listarProgramas();
     }
 
@@ -38,34 +38,26 @@ public class ProgramaController {
             List<ProgramaVoluntariadoDTO> lista = mapper.readValue(json, new TypeReference<>() {});
             programasTable.getItems().setAll(lista);
         } catch (Exception e) {
-            alert(e.getMessage());
+            alert("Erro ao listar programas: " + e.getMessage());
         }
     }
 
     @FXML
-    public void listarCandidaturasPendentes() {
-    	ProgramaVoluntariadoDTO p = selecionado();
-        if (p == null) return;
-        api.get("/programas/" + p.getId() + "/candidaturas/pendentes");
-        alert("Candidaturas pendentes listadas.");
+    public void verificarVagasDisponiveis() {
+        alert(api.get("/programas/vagasDisponiveis"));
     }
 
     @FXML
-    public void verificarVagasDisponiveis() {
-    	ProgramaVoluntariadoDTO p = selecionado();
-        if (p == null) return;
-        alert("Vagas disponíveis: " + p.getVagas());
+    public void listarCandidaturasPendentes() {
+        alert(api.get("/programas/candidaturasPendentes"));
     }
 
     @FXML
     public void listarParticipantes() {
-    	ProgramaVoluntariadoDTO p = selecionado();
-        if (p == null) return;
-        api.get("/programas/" + p.getId() + "/participantes");
-        alert("Participantes listados.");
+        alert(api.get("/programas/participantes"));
     }
 
-    private ProgramaVoluntariadoDTO selecionado() { return programasTable.getSelectionModel().getSelectedItem(); }
-
-    private void alert(String msg) { new Alert(Alert.AlertType.INFORMATION, msg).show(); }
+    private void alert(String msg) {
+        new Alert(Alert.AlertType.INFORMATION, msg).show();
+    }
 }

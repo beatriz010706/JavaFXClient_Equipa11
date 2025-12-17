@@ -28,7 +28,7 @@ public class ParceiroController {
     @FXML private TableColumn<ProgramaVoluntariadoDTO, String> tipoCol;
     @FXML private TableColumn<ProgramaVoluntariadoDTO, String> localCol;
     @FXML private TableColumn<ProgramaVoluntariadoDTO, Integer> vagasCol;
-    @FXML private TableColumn<ProgramaVoluntariadoDTO, Integer> vagasOcupadasCol;
+
 
     private final ApiService api = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +44,6 @@ public class ParceiroController {
         tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo")); // precisa do getter getTipo()
         localCol.setCellValueFactory(new PropertyValueFactory<>("local"));
         vagasCol.setCellValueFactory(new PropertyValueFactory<>("vagas"));
-        vagasOcupadasCol.setCellValueFactory(new PropertyValueFactory<>("vagasOcupadas"));
 
         // Lista programas ao iniciar
         listarProgramas();

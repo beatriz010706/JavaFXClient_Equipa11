@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lp.JavaFXClient_Equipa11.controller.ProgramaController"
-      spacing="10" style="-fx-padding:10;">
-    <Label text="Programas" style="-fx-font-size:16;-fx-font-weight:bold;"/>
+      spacing="10"
+      style="-fx-padding:10;">
+
+    <Label text="Programas de Voluntariado" style="-fx-font-size:16;-fx-font-weight:bold;"/>
 
     <TableView fx:id="programasTable" prefHeight="300">
         <columns>
