@@ -1,5 +1,7 @@
 package lp.JavaFXClient_Equipa11.controller;
-
+/**
+ * @author gonçalo silva
+ */
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,4 +58,4 @@ public class CandidaturaController {
     private void alert(String msg) {
         new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
-}
+}//fim classe

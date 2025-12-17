@@ -1,5 +1,7 @@
 package lp.JavaFXClient_Equipa11.controller;
-
+/**
+ * @author miguel silva
+ */
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -60,4 +62,4 @@ public class ProgramaController {
     private void alert(String msg) {
         new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
-}
+}//fim classe

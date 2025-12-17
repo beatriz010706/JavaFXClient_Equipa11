@@ -170,4 +170,4 @@ public class ParceiroController {
     private void alert(String msg) {
         new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
-}
+}//fim classe

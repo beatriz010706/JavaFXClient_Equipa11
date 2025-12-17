@@ -1,5 +1,7 @@
 package lp.JavaFXClient_Equipa11.controller;
-
+/**
+ * @author beatriz silva
+ */
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import lp.JavaFXClient_Equipa11.services.ApiService;
@@ -122,4 +124,4 @@ public class UtilizadorController {
     private void alert(String msg) {
         new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
-}
+}//fim classe

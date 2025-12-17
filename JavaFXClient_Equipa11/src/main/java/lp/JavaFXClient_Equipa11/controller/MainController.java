@@ -1,5 +1,7 @@
 package lp.JavaFXClient_Equipa11.controller;
-
+/**
+ * @author equipa 11
+ */
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,4 +33,4 @@ public class MainController {
             e.printStackTrace();
         }
     }
-}
+}//fim classe

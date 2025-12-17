@@ -1,5 +1,7 @@
 package lp.JavaFXClient_Equipa11.controller;
-
+/**
+ * @author equipa 11
+ */
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -65,4 +67,4 @@ public class ProgEstudanteController {
     private void alert(String msg) {
         new Alert(Alert.AlertType.INFORMATION, msg).show();
     }
-}
+}//fim classe
