@@ -14,6 +14,7 @@ public class ProgramaVoluntariadoDTO {
     private String local;
     private int vagas;
     private int vagasOcupadas;
+    private String tipo;
 
     public ProgramaVoluntariadoDTO() {}
 
@@ -60,8 +61,7 @@ public class ProgramaVoluntariadoDTO {
     public int getVagasOcupadas() { return vagasOcupadas; }
     public void setVagasOcupadas(int vagasOcupadas) { this.vagasOcupadas = vagasOcupadas; }
 
-	public void setTipo(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+	public String getTipo() {return tipo;}
+	public void setTipo(String tipo) {this.tipo = tipo;}
+	
 }//fim classe
