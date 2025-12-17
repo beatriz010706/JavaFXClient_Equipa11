@@ -11,6 +11,7 @@ public class ParceiroDTO {
     private String email;
     private String password;
     private String local;
+    private String tipo;
     private List<String> programas; // Lista de títulos dos programas
 
     public ParceiroDTO() {}
@@ -42,5 +43,9 @@ public class ParceiroDTO {
 
     public List<String> getProgramas() { return programas; }
     public void setProgramas(List<String> programas) { this.programas = programas; }
+    
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
 }//fim classe
 

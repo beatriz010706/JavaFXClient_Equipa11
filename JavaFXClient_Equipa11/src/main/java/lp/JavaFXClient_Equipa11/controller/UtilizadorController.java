@@ -18,12 +18,19 @@ public class UtilizadorController {
 
     @FXML
     public void initialize() {
-        tipoUtilizador.getItems().addAll("ESTUDANTE", "PARCEIRO");
+        // Apenas os tipos concretos
+        tipoUtilizador.getItems().setAll("ESTUDANTE", "PARCEIRO");
         tipoUtilizador.getSelectionModel().selectFirst();
+
+        // Preencher comboBox do tipo de parceiro
+        tipoParceiro.getItems().setAll("EMPRESA", "ONG", "INSTITUICAO_PUBLICA");
+
+        // Atualiza campos ao mudar tipo
         tipoUtilizador.setOnAction(e -> atualizarCampos());
         atualizarCampos();
     }
 
+    /** Habilita/desabilita campos conforme tipo */
     private void atualizarCampos() {
         boolean isEstudante = tipoUtilizador.getValue().equals("ESTUDANTE");
         txtCurso.setDisable(!isEstudante);
@@ -31,34 +38,83 @@ public class UtilizadorController {
         tipoParceiro.setDisable(isEstudante);
     }
 
+    /** Registo do utilizador */
     @FXML
     public void registar() {
         String endpoint;
         String json;
 
         if (tipoUtilizador.getValue().equals("ESTUDANTE")) {
+            // Validação
+            if (txtNome.getText().isBlank() || txtEmail.getText().isBlank() ||
+                txtPassword.getText().isBlank() || txtCurso.getText().isBlank() ||
+                txtNumeroAluno.getText().isBlank()) {
+                alert("Preencha todos os campos do estudante.");
+                return;
+            }
+
+            int numeroAluno;
+            try {
+                numeroAluno = Integer.parseInt(txtNumeroAluno.getText());
+            } catch (NumberFormatException e) {
+                alert("Número de aluno inválido.");
+                return;
+            }
+
             endpoint = "/estudantes/registar";
             json = """
-                    {"nome":"%s","email":"%s","password":"%s","curso":"%s","numeroAluno":%d}
-                    """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText(),
-                            txtCurso.getText(), txtNumeroAluno.getText());
-        } else {
+                {
+                  "nome":"%s",
+                  "email":"%s",
+                  "password":"%s",
+                  "curso":"%s",
+                  "numeroAluno":%d
+                }
+                """.formatted(txtNome.getText(), txtEmail.getText(),
+                               txtPassword.getText(), txtCurso.getText(),
+                               numeroAluno);
+
+        } else { // PARCEIRO
+            if (txtNome.getText().isBlank() || txtEmail.getText().isBlank() ||
+                txtPassword.getText().isBlank() || tipoParceiro.getValue() == null) {
+                alert("Preencha todos os campos do parceiro.");
+                return;
+            }
+
             endpoint = "/parceiros/registar";
             json = """
-                    {"nome":"%s","email":"%s","password":"%s","tipo":"%s"}
-                    """.formatted(txtNome.getText(), txtEmail.getText(), txtPassword.getText(),
-                            tipoParceiro.getValue());
+                {
+                  "nome":"%s",
+                  "email":"%s",
+                  "password":"%s",
+                  "tipo":"%s"
+                }
+                """.formatted(txtNome.getText(), txtEmail.getText(),
+                               txtPassword.getText(), tipoParceiro.getValue());
         }
+
         api.post(endpoint, json);
-        alert("Registo efetuado com sucesso.");
+        alert("Registo efetuado com sucesso!");
     }
 
+    /** Login do utilizador */
     @FXML
     public void login() {
-        String endpoint = tipoUtilizador.getValue().equals("ESTUDANTE") ? "/estudantes/login" : "/parceiros/login";
+        if (txtEmail.getText().isBlank() || txtPassword.getText().isBlank()) {
+            alert("Email e password são obrigatórios.");
+            return;
+        }
+
+        String endpoint = tipoUtilizador.getValue().equals("ESTUDANTE") ?
+                "/estudantes/login" : "/parceiros/login";
+
         String json = """
-                {"email":"%s","senha":"%s"}
+                {
+                  "email":"%s",
+                  "senha":"%s"
+                }
                 """.formatted(txtEmail.getText(), txtPassword.getText());
+
         api.post(endpoint, json);
         alert("Login efetuado.");
     }

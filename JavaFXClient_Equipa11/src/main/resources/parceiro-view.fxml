@@ -7,37 +7,30 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="lp.JavaFXClient_Equipa11.controller.ParceiroController"
       spacing="10" style="-fx-padding:10;">
-    <Label text="Parceiro" style="-fx-font-size:16;-fx-font-weight:bold;"/>
-
-    <HBox spacing="10">
-        <TextField fx:id="txtNome" promptText="Nome"/>
-        <TextField fx:id="txtEmail" promptText="Email"/>
-        <TextField fx:id="txtPassword" promptText="Password"/>
-        <Button text="Registar" onAction="#registar"/>
-        <Button text="Login" onAction="#login"/>
-    </HBox>
-
+    
+    <Label text="Gestão de Programas" style="-fx-font-size:16;-fx-font-weight:bold;"/>
+    
     <HBox spacing="10">
         <TextField fx:id="txtTitulo" promptText="Título"/>
         <TextField fx:id="txtDescricao" promptText="Descrição"/>
         <ComboBox fx:id="tipoPrograma"/>
         <TextField fx:id="txtVagas" promptText="Vagas"/>
+        <TextField fx:id="txtLocal" promptText="Local"/>
     </HBox>
-
-    <TableView fx:id="programasTable" prefHeight="250">
+    
+    <TableView fx:id="programasTable" prefHeight="300">
         <columns>
             <TableColumn fx:id="idCol" text="ID" prefWidth="60"/>
-            <TableColumn fx:id="tituloCol" text="Título" prefWidth="200"/>
+            <TableColumn fx:id="tituloCol" text="Título" prefWidth="180"/>
             <TableColumn fx:id="tipoCol" text="Tipo" prefWidth="120"/>
             <TableColumn fx:id="vagasCol" text="Vagas" prefWidth="80"/>
+            <TableColumn fx:id="localCol" text="Local" prefWidth="120"/>
         </columns>
     </TableView>
-
+    
     <HBox spacing="10">
         <Button text="Registar Programa" onAction="#registarPrograma"/>
         <Button text="Editar Programa" onAction="#editarPrograma"/>
         <Button text="Eliminar Programa" onAction="#eliminarPrograma"/>
-        <Button text="Aprovar Candidatura" onAction="#aprovarCandidatura"/>
-        <Button text="Rejeitar Candidatura" onAction="#rejeitarCandidatura"/>
     </HBox>
 </VBox>

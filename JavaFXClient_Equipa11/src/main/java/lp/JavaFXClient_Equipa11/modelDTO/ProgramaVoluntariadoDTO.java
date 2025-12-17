@@ -1,10 +1,11 @@
 package lp.JavaFXClient_Equipa11.modelDTO;
 
+
 /**
  * @author miguel silva
  */
 
-public class ProgramaDTO {
+public class ProgramaVoluntariadoDTO {
 
     private Long id;
     private String titulo;
@@ -13,10 +14,11 @@ public class ProgramaDTO {
     private String local;
     private int vagas;
     private int vagasOcupadas;
+    private String tipo;
 
-    public ProgramaDTO() {}
+    public ProgramaVoluntariadoDTO() {}
 
-    public ProgramaDTO(Long id, String titulo, String descricao, int horasServico, String local, int vagas, int vagasOcupadas) {
+    public ProgramaVoluntariadoDTO(Long id, String titulo, String descricao, int horasServico, String local, int vagas, int vagasOcupadas) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -24,6 +26,17 @@ public class ProgramaDTO {
         this.local = local;
         this.vagas = vagas;
         this.vagasOcupadas = vagasOcupadas;
+    }
+ // CORREÇÃO: construtor que recebe a entidade ProgramaVoluntariado
+    // Necessário para conversão Entity -> DTO no service (stream.map)
+    public ProgramaVoluntariadoDTO(ProgramaVoluntariadoDTO programa) {
+        this.id = programa.getId();
+        this.titulo = programa.getTitulo();
+        this.descricao = programa.getDescricao();
+        this.horasServico = programa.getHorasServico();
+        this.local = programa.getLocal();
+        this.vagas = programa.getVagas();
+        this.vagasOcupadas = programa.getVagasOcupadas();
     }
 
     // Getters e Setters
@@ -48,7 +61,7 @@ public class ProgramaDTO {
     public int getVagasOcupadas() { return vagasOcupadas; }
     public void setVagasOcupadas(int vagasOcupadas) { this.vagasOcupadas = vagasOcupadas; }
 
-	public void setTipo(String string) {
-		// TODO Auto-generated method stub	
-	}
+	public String getTipo() {return tipo;}
+	public void setTipo(String tipo) {this.tipo = tipo;}
+	
 }//fim classe
