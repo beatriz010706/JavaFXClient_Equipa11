@@ -62,18 +62,51 @@ public class ParceiroController {
         }
     }
 
-    @FXML
     public void registarPrograma() {
+        String endpoint = "/programas";
+
+        // Validação        
+        if (txtTitulo.getText().isBlank() ||
+            txtDescricao.getText().isBlank() ||
+            txtVagas.getText().isBlank() ||
+            tipoPrograma.getValue() == null) {
+
+            alert("Preencha todos os campos do programa.");
+            return;
+        }
+
+        int vagas;
         try {
-            ProgramaVoluntariadoDTO p = getProgramaFromFields();
-            String json = mapper.writeValueAsString(p);
-            api.post("/programas/registar", json);
+            vagas = Integer.parseInt(txtVagas.getText());
+        } catch (NumberFormatException e) {
+            alert("Número de vagas inválido.");
+            return;
+        }
+
+        String json = """
+            {
+              "titulo":"%s",
+              "descricao":"%s",
+              "vagas":%d,
+              "tipo":"%s"
+            }
+            """.formatted(
+                txtTitulo.getText(),
+                txtDescricao.getText(),
+                vagas,
+                tipoPrograma.getValue()
+            );
+
+        try {
+            api.post(endpoint, json);
             alert("Programa registado com sucesso!");
-            listarProgramas();
+            listarProgramas(); // refresh da tabela
         } catch (Exception e) {
-            alert("Erro ao registar programa: " + e.getMessage());
+            alert("Erro ao registar programa.");
+            e.printStackTrace();
         }
     }
+
 
     @FXML
     public void editarPrograma() {
